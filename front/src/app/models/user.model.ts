@@ -3,12 +3,14 @@ export interface User {
   email: string,
   displayName: string,
   token: string,
+  phone: string,
 }
 
 export interface RegisterUserData {
   email: string,
   password: string,
   displayName: string,
+  phone: string,
 }
 
 export interface LoginUserData {

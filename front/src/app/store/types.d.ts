@@ -16,6 +16,9 @@ export type ItemsState = {
   fetchError: null | string,
   createLoading: boolean,
   createError: null | CreateItemError,
+  item: Item | null,
+  fetchItemLoading: boolean,
+  fetchItemError: null | string,
 }
 
 export type CategoriesState = {

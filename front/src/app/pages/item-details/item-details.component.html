@@ -1,19 +1,27 @@
-<mat-card>
-  <mat-card-content>
-    <p>Title</p>
-    <img
-      [src]="'http://www.kurzweilai.net/images/Naam-Limits-of-Earth-Part1-001-earth-600x600.jpg'"
-      [alt]="'Photo of '"/>
-    <p>Description</p>
-    <p><strong>Price </strong>som</p>
-    <p><strong>Category: </strong></p>
-    <p><strong>Seller: </strong></p>
-    <ul>
-      <li><strong>Name: </strong></li>
-      <li><strong>Phone: </strong></li>
-    </ul>
+<div *ngIf="error | async" class="error">
+  {{ (error | async) }}
+</div>
 
-    <button mat-raised-button color="warn" (click)="onDelete()">Delete</button>
+<mat-spinner *ngIf="loading | async else itemArea"></mat-spinner>
 
-  </mat-card-content>
-</mat-card>
+<ng-template #itemArea>
+  <mat-card *ngIf="itemData">
+    <mat-card-content>
+      <p>{{ itemData.title }}</p>
+      <img
+        [src]="itemData.image | image"
+        [alt]="'Photo of ' + itemData.title"/>
+      <p>Description</p>
+      <p><strong>Price: </strong>{{ itemData.price }} som</p>
+      <p><strong>Category: </strong>{{ itemData.category }}</p>
+      <p><strong>Seller: </strong></p>
+      <ul>
+        <li><strong>Name: </strong>{{ itemData.user.displayName }}</li>
+        <li><strong>Phone: </strong>{{ itemData.user.phone }}</li>
+      </ul>
+
+      <button mat-raised-button color="warn" (click)="onDelete()" *ngIf="showButton()">Delete</button>
+
+    </mat-card-content>
+  </mat-card>
+</ng-template>

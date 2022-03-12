@@ -1,7 +1,9 @@
-<mat-card>
-  <mat-card-content>
-    <img [src]="item.image | image" [alt]="item.title">
-    <p>{{ item.title }}</p>
-    <p>{{ item.price }} som</p>
-  </mat-card-content>
-</mat-card>
+<a [routerLink]="['/items', item._id]">
+  <mat-card>
+    <mat-card-content>
+      <img [src]="item.image | image" [alt]="item.title">
+      <p>{{ item.title }}</p>
+      <p>{{ item.price }} som</p>
+    </mat-card-content>
+  </mat-card>
+</a>

@@ -6,10 +6,10 @@ import { HelpersService } from '../services/helpers.service';
 import {
   createItemFailure,
   createItemRequest,
-  createItemSuccess,
+  createItemSuccess, fetchItemFailure, fetchItemRequest,
   fetchItemsFailure,
   fetchItemsRequest,
-  fetchItemsSuccess
+  fetchItemsSuccess, fetchItemSuccess
 } from './items.actions';
 import { map, mergeMap, tap } from 'rxjs';
 
@@ -26,6 +26,14 @@ export class ItemsEffects {
     mergeMap(({category}) => this.itemsService.fetchItems(category).pipe(
       map((items) => fetchItemsSuccess({items})),
       this.helpers.catchServerError(fetchItemsFailure),
+    ))
+  ));
+
+  fetchItem = createEffect(() => this.actions.pipe(
+    ofType(fetchItemRequest),
+    mergeMap(({id}) => this.itemsService.fetchItem(id).pipe(
+      map((item) => fetchItemSuccess({item})),
+      this.helpers.catchServerError(fetchItemFailure),
     ))
   ));
 

@@ -24,10 +24,10 @@ const upload = multer({storage});
 router.get('/', async (req, res, next) => {
   try {
     if (req.query['category']) {
-      const items = await Item.find({category: req.query['category']}).populate('user', ['displayName', 'phone', '_id']).populate('category');
+      const items = await Item.find({category: req.query['category']}).populate('user', '_id').populate('category');
       return res.send(items);
     }
-    const items = await Item.find({}, null, {sort: {'_id': -1}}).populate('user', ['displayName', 'phone', '_id']).populate('category');
+    const items = await Item.find({}, null, {sort: {'_id': -1}}).populate('user', '_id').populate('category');
     return res.send(items);
   } catch (e) {
     return next(e);
@@ -37,7 +37,7 @@ router.get('/', async (req, res, next) => {
 router.post('/', auth, upload.single('image'), async (req, res, next) => {
   try {
     const itemData = {
-      user: req.user,
+      user: req.user._id,
       title: req.body.title,
       category: req.body.category,
       description: req.body.description,
@@ -62,11 +62,11 @@ router.post('/', auth, upload.single('image'), async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const item = await Item.find({_id: req.params.id});
+    const item = await Item.find({_id: req.params.id}).populate('user', ['displayName', 'phone']);
     res.send(item);
   } catch (e) {
     return next(e);
   }
-})
+});
 
 module.exports = router;

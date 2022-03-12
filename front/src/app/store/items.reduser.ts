@@ -3,10 +3,10 @@ import { createReducer, on } from '@ngrx/store';
 import {
   createItemFailure,
   createItemRequest,
-  createItemSuccess,
+  createItemSuccess, fetchItemFailure, fetchItemRequest,
   fetchItemsFailure,
   fetchItemsRequest,
-  fetchItemsSuccess
+  fetchItemsSuccess, fetchItemSuccess
 } from './items.actions';
 
 const initialState: ItemsState = {
@@ -15,6 +15,9 @@ const initialState: ItemsState = {
   fetchError: null,
   createLoading: false,
   createError: null,
+  item: null,
+  fetchItemLoading: false,
+  fetchItemError: null,
 };
 
 export const itemsReducer = createReducer(
@@ -25,4 +28,7 @@ export const itemsReducer = createReducer(
   on(createItemRequest, state => ({...state, createLoading: false, createError: null})),
   on(createItemSuccess, state => ({...state, createLoading: false})),
   on(createItemFailure, (state, {error}) => ({...state, createLoading: false, createError: error})),
-)
+  on(fetchItemRequest, state => ({...state, fetchItemLoading: true, fetchItemError: null})),
+  on(fetchItemSuccess, (state, {item}) => ({...state, fetchItemLoading: false, item})),
+  on(fetchItemFailure, (state, {error}) => ({...state, fetchItemLoading: false, fetchItemError: error})),
+);
