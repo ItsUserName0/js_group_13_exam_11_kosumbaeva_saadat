@@ -38,6 +38,8 @@ import { ValidatePhoneDirective } from './directives/validate-phone.directive';
 import { EditItemComponent } from './pages/edit-item/edit-item.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ItemDetailsComponent } from './pages/item-details/item-details.component';
+import { itemsReducer } from './store/items.reduser';
+import { ItemsEffects } from './store/items.effects';
 
 const localStorageSyncReducer = (reducer: ActionReducer<any>) => {
   return localStorageSync({
@@ -80,8 +82,8 @@ const metaReducers: MetaReducer[] = [localStorageSyncReducer];
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
-    StoreModule.forRoot({users: usersReducer}, {metaReducers}),
-    EffectsModule.forRoot([UsersEffects]),
+    StoreModule.forRoot({users: usersReducer, items: itemsReducer}, {metaReducers}),
+    EffectsModule.forRoot([UsersEffects, ItemsEffects]),
     MatProgressSpinnerModule,
     LayoutModule,
     MatSidenavModule,

@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-content>
-    <img src="http://www.kurzweilai.net/images/Naam-Limits-of-Earth-Part1-001-earth-600x600.jpg" alt="">
-    <p>Title</p>
-    <p>Price som</p>
+    <img [src]="item.image | image" [alt]="item.title">
+    <p>{{ item.title }}</p>
+    <p>{{ item.price }} som</p>
   </mat-card-content>
 </mat-card>

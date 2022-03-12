@@ -1,7 +1,5 @@
-<h3>Title</h3>
+<h3 class="title">{{ title }}</h3>
 
 <div fxLayout="row wrap" fxLayoutGap="16px">
-  <app-item></app-item>
-  <app-item></app-item>
-  <app-item></app-item>
+  <app-item *ngFor="let i of (items | async)" [item]="i"></app-item>
 </div>
