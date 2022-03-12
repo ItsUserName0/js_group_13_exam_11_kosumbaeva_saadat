@@ -1,4 +1,5 @@
-<mat-spinner *ngIf="categLoading | async; else categoriesFieldArea" diameter="40" class="spinner"></mat-spinner>
+<mat-spinner *ngIf="categoriesLoading | async; else categoriesFieldArea" diameter="40" class="spinner"></mat-spinner>
+
 <ng-template #categoriesFieldArea>
   <mat-nav-list>
     <a mat-list-item routerLink="/items/category/all">All</a>

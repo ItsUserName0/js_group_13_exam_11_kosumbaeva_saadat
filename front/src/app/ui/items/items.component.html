@@ -1,5 +1,13 @@
 <h3 class="title">{{ title }}</h3>
 
-<div fxLayout="row wrap" fxLayoutGap="16px">
-  <app-item *ngFor="let i of (items | async)" [item]="i"></app-item>
+<div *ngIf="error | async" class="error">
+  {{ (error | async) }}
 </div>
+
+<mat-spinner *ngIf="loading | async else itemsArea"></mat-spinner>
+
+<ng-template #itemsArea>
+  <div fxLayout="row wrap" fxLayoutGap="16px">
+    <app-item *ngFor="let i of (items | async)" [item]="i"></app-item>
+  </div>
+</ng-template>

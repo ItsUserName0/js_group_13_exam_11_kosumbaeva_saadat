@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/types';
@@ -14,27 +14,28 @@ import { fetchCategoriesRequest } from '../../store/categories.actions';
   templateUrl: './edit-item.component.html',
   styleUrls: ['./edit-item.component.sass']
 })
-export class EditItemComponent implements OnInit, OnDestroy {
+export class EditItemComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('f') form!: NgForm;
 
   user: Observable<User | null>;
   userSub!: Subscription;
   token!: string | undefined;
-  loading: Observable<boolean>;
-  error: Observable<null | CreateItemError>;
+  createLoading: Observable<boolean>;
+  createError: Observable<null | CreateItemError>;
+  errSub!: Subscription;
 
   categories: Observable<Category[]>;
-  categLoading: Observable<boolean>;
-  categError: Observable<null | string>;
+  categoriesLoading: Observable<boolean>;
+  categoriesError: Observable<null | string>;
 
 
   constructor(private store: Store<AppState>) {
     this.user = store.select(state => state.users.user);
-    this.loading = store.select(state => state.items.createLoading);
-    this.error = store.select(state => state.items.createError);
+    this.createLoading = store.select(state => state.items.createLoading);
+    this.createError = store.select(state => state.items.createError);
     this.categories = store.select(state => state.categories.categories);
-    this.categLoading = store.select(state => state.categories.fetchLoading);
-    this.categError = store.select(state => state.categories.fetchError);
+    this.categoriesLoading = store.select(state => state.categories.fetchLoading);
+    this.categoriesError = store.select(state => state.categories.fetchError);
   }
 
   ngOnInit(): void {
@@ -42,6 +43,17 @@ export class EditItemComponent implements OnInit, OnDestroy {
       this.token = user?.token;
     });
     this.store.dispatch(fetchCategoriesRequest());
+  }
+
+  ngAfterViewInit() {
+    this.errSub = this.createError.subscribe(err => {
+      if (err) {
+        const msg = err.errors.image.message;
+        this.form.form.get('image')?.setErrors({serverError: msg});
+      } else {
+        this.form.form.get('image')?.setErrors(null);
+      }
+    });
   }
 
   createPost() {
@@ -52,6 +64,7 @@ export class EditItemComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+    this.errSub.unsubscribe();
   }
 
 }

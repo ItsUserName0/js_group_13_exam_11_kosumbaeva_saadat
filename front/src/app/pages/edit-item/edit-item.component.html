@@ -17,8 +17,14 @@
         <app-file-input name="image" required ngModel #image=ngModel></app-file-input>
         <mat-error *ngIf="image.touched && image.hasError('required')">Image is required!</mat-error>
       </mat-form-field>
+      <small
+        *ngIf="image.touched && image.hasError('serverError')">{{ image.getError('serverError') }}</small>
 
-      <mat-spinner *ngIf="categLoading | async; else categoriesFieldArea" diameter="40" class="spinner"></mat-spinner>
+      <div *ngIf="categoriesError | async" class="error">
+        {{ (categoriesError | async) }}
+      </div>
+
+      <mat-spinner *ngIf="categoriesLoading | async; else categoriesFieldArea" diameter="40" class="spinner"></mat-spinner>
       <ng-template #categoriesFieldArea>
         <mat-form-field appearance="outline">
           <mat-label>Category</mat-label>
@@ -36,8 +42,9 @@
         <mat-error *ngIf="price.touched && price.hasError('min')">The minimum value must be at least 0!</mat-error>
       </mat-form-field>
       <div fxLayout="row" fxLayoutAlign="flex-end">
-        <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">
-          Create item
+        <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid || (createLoading | async)">
+          <mat-spinner *ngIf="createLoading | async" diameter="25"></mat-spinner>
+          <span *ngIf="!(createLoading | async)">Create item</span>
         </button>
       </div>
     </form>

@@ -12,13 +12,13 @@ import { fetchCategoriesRequest } from '../../store/categories.actions';
 })
 export class SidebarComponent implements OnInit {
   categories: Observable<Category[]>;
-  categLoading: Observable<boolean>;
-  categError: Observable<null | string>;
+  categoriesLoading: Observable<boolean>;
+  categoriesError: Observable<null | string>;
 
   constructor(private store: Store<AppState>) {
     this.categories = store.select(state => state.categories.categories);
-    this.categLoading = store.select(state => state.categories.fetchLoading);
-    this.categError = store.select(state => state.categories.fetchError);
+    this.categoriesLoading = store.select(state => state.categories.fetchLoading);
+    this.categoriesError = store.select(state => state.categories.fetchError);
   }
 
   ngOnInit(): void {
