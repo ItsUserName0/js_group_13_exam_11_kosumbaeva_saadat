@@ -40,6 +40,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { ItemDetailsComponent } from './pages/item-details/item-details.component';
 import { itemsReducer } from './store/items.reduser';
 import { ItemsEffects } from './store/items.effects';
+import { categoriesReducer } from './store/categories.reducer';
+import { CategoriesEffects } from './store/categories.effects';
 
 const localStorageSyncReducer = (reducer: ActionReducer<any>) => {
   return localStorageSync({
@@ -82,8 +84,8 @@ const metaReducers: MetaReducer[] = [localStorageSyncReducer];
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
-    StoreModule.forRoot({users: usersReducer, items: itemsReducer}, {metaReducers}),
-    EffectsModule.forRoot([UsersEffects, ItemsEffects]),
+    StoreModule.forRoot({users: usersReducer, items: itemsReducer, categories: categoriesReducer}, {metaReducers}),
+    EffectsModule.forRoot([UsersEffects, ItemsEffects, CategoriesEffects]),
     MatProgressSpinnerModule,
     LayoutModule,
     MatSidenavModule,

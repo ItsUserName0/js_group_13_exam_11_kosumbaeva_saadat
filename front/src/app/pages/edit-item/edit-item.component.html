@@ -17,15 +17,18 @@
         <app-file-input name="image" required ngModel #image=ngModel></app-file-input>
         <mat-error *ngIf="image.touched && image.hasError('required')">Image is required!</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Category</mat-label>
-        <select matNativeControl name="category" ngModel required #category="ngModel">
-          <option value="622c642edc27f96052ab732c">Computer</option>
-          <option value="622c6457dc27f96052ab732e">Cars</option>
-          <option value="622c6427dc27f96052ab732a">Other</option>
-        </select>
-        <mat-error *ngIf="category.touched && category.hasError('required')">Category is required!</mat-error>
-      </mat-form-field>
+
+      <mat-spinner *ngIf="categLoading | async; else categoriesFieldArea" diameter="40" class="spinner"></mat-spinner>
+      <ng-template #categoriesFieldArea>
+        <mat-form-field appearance="outline">
+          <mat-label>Category</mat-label>
+          <select matNativeControl name="category" required ngModel #category="ngModel">
+            <option *ngFor="let c of categories | async" [value]="c._id" class="category">{{ c.category }}</option>
+          </select>
+          <mat-error *ngIf="category.touched && category.hasError('required')">Category is required!</mat-error>
+        </mat-form-field>
+      </ng-template>
+
       <mat-form-field appearance="outline">
         <mat-label>Price</mat-label>
         <input type="number" min="0" name="price" required matInput ngModel #price="ngModel">

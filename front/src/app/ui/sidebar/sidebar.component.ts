@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Category } from '../../models/category.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/types';
+import { fetchCategoriesRequest } from '../../store/categories.actions';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,10 +11,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.sass']
 })
 export class SidebarComponent implements OnInit {
+  categories: Observable<Category[]>;
+  categLoading: Observable<boolean>;
+  categError: Observable<null | string>;
 
-  constructor() { }
+  constructor(private store: Store<AppState>) {
+    this.categories = store.select(state => state.categories.categories);
+    this.categLoading = store.select(state => state.categories.fetchLoading);
+    this.categError = store.select(state => state.categories.fetchError);
+  }
 
   ngOnInit(): void {
+    this.store.dispatch(fetchCategoriesRequest());
   }
 
 }
