@@ -71,6 +71,12 @@ router.get('/:id', async (req, res, next) => {
 
 router.delete('/:id', auth, async (req, res, next) => {
   try {
+    const item = await Item.findOne({_id: req.params.id});
+
+    if (item.get('user').toString() !== req.user._id.toString()) {
+      return res.status(403).send({error: 'Not enough rights!'});
+    }
+
     await Item.findByIdAndDelete(req.params.id);
     return res.send({message: 'Item deleted!'});
   } catch (e) {

@@ -1,3 +1,9 @@
 .idea
 node_modules
 public/uploads/*
+!public/uploads/item1.jpg
+!public/uploads/item2.jpeg
+!public/uploads/item3.jpeg
+!public/uploads/item4.jpg
+!public/uploads/item5.jpg
+!public/uploads/item6.jpg
