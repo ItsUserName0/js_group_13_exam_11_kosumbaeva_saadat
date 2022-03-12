@@ -62,11 +62,20 @@ router.post('/', auth, upload.single('image'), async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const item = await Item.find({_id: req.params.id}).populate('user', ['displayName', 'phone']);
+    const item = await Item.find({_id: req.params.id}).populate('user', ['displayName', 'phone']).populate('category');
     res.send(item);
   } catch (e) {
     return next(e);
   }
 });
+
+router.delete('/:id', auth, async (req, res, next) => {
+  try {
+    await Item.findByIdAndDelete(req.params.id);
+    return res.send({message: 'Item deleted!'});
+  } catch (e) {
+    return next(e);
+  }
+})
 
 module.exports = router;

@@ -9,7 +9,7 @@ import {
   createItemSuccess, fetchItemFailure, fetchItemRequest,
   fetchItemsFailure,
   fetchItemsRequest,
-  fetchItemsSuccess, fetchItemSuccess
+  fetchItemsSuccess, fetchItemSuccess, removeItemFailure, removeItemRequest, removeItemSuccess
 } from './items.actions';
 import { map, mergeMap, tap } from 'rxjs';
 
@@ -46,6 +46,18 @@ export class ItemsEffects {
         this.helpers.openSnackBar('Created successful!');
       }),
       this.helpers.catchServerError(createItemFailure),
+    ))
+  ));
+
+  removeItem = createEffect(() => this.actions.pipe(
+    ofType(removeItemRequest),
+    mergeMap(({data}) => this.itemsService.removeItem(data).pipe(
+      map(() => removeItemSuccess()),
+      tap(() => {
+        this.helpers.openSnackBar('Removed successful!');
+        void this.router.navigate(['/']);
+      }),
+      this.helpers.catchServerError(removeItemFailure),
     ))
   ));
 

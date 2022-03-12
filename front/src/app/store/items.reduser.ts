@@ -6,7 +6,7 @@ import {
   createItemSuccess, fetchItemFailure, fetchItemRequest,
   fetchItemsFailure,
   fetchItemsRequest,
-  fetchItemsSuccess, fetchItemSuccess
+  fetchItemsSuccess, fetchItemSuccess, removeItemFailure, removeItemRequest, removeItemSuccess
 } from './items.actions';
 
 const initialState: ItemsState = {
@@ -18,6 +18,8 @@ const initialState: ItemsState = {
   item: null,
   fetchItemLoading: false,
   fetchItemError: null,
+  removeLoading: false,
+  removeError: null,
 };
 
 export const itemsReducer = createReducer(
@@ -31,4 +33,7 @@ export const itemsReducer = createReducer(
   on(fetchItemRequest, state => ({...state, fetchItemLoading: true, fetchItemError: null})),
   on(fetchItemSuccess, (state, {item}) => ({...state, fetchItemLoading: false, item})),
   on(fetchItemFailure, (state, {error}) => ({...state, fetchItemLoading: false, fetchItemError: error})),
+  on(removeItemRequest, state => ({...state, removeLoading: true, removeError: null})),
+  on(removeItemSuccess, state => ({...state, removeLoading: false})),
+  on(removeItemFailure, (state, {error}) => ({...state, removeLoading: false, removeError: error})),
 );

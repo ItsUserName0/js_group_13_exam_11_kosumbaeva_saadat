@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Item, ItemData } from '../models/item.model';
+import { Item, ItemData, RemoveItemData } from '../models/item.model';
 import { map } from 'rxjs';
 
 @Injectable({
@@ -37,4 +37,9 @@ export class ItemsService {
 
     return this.http.post(environment.apiUrl + '/items', formData, {headers: new HttpHeaders({'Authorization': itemData.token})});
   }
+
+  removeItem(data: RemoveItemData) {
+    return this.http.delete(environment.apiUrl + '/items/' + data.itemId, {headers: {'Authorization': data.token}});
+  }
+
 }

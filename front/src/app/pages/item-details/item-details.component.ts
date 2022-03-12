@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/types';
-import { fetchItemRequest } from '../../store/items.actions';
+import { fetchItemRequest, removeItemRequest } from '../../store/items.actions';
 import { Observable, Subscription } from 'rxjs';
 import { Item } from '../../models/item.model';
 import { User } from '../../models/user.model';
@@ -38,7 +38,6 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     });
     this.itemSub = this.item.subscribe(item => {
       this.itemData = item;
-      console.log(item);
     });
     this.userSub = this.user.subscribe(user => {
       this.userData = user;
@@ -50,7 +49,13 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
   }
 
   onDelete() {
-
+    if (this.itemData?._id && this.userData?.token) {
+      const data = {
+        itemId: this.itemData?._id,
+        token: this.userData?.token,
+      };
+      this.store.dispatch(removeItemRequest({data}));
+    }
   }
 
   ngOnDestroy(): void {

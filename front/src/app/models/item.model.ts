@@ -7,7 +7,7 @@ export interface Item {
   description: string,
   image: string,
   price: string,
-  category: string,
+  category: {_id: string, category: string},
 }
 
 export interface ItemData {
@@ -19,6 +19,11 @@ export interface ItemData {
   image: File,
   price: number,
   category: string,
+}
+
+export interface RemoveItemData {
+  itemId: string,
+  token: string,
 }
 
 export interface FieldError {

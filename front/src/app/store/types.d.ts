@@ -19,6 +19,8 @@ export type ItemsState = {
   item: Item | null,
   fetchItemLoading: boolean,
   fetchItemError: null | string,
+  removeLoading: boolean,
+  removeError: null | string,
 }
 
 export type CategoriesState = {
