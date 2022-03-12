@@ -13,12 +13,8 @@
 
 <ng-template #userMenu>
   <nav>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>account_circle</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/items/new">Add new item</button>
-      <button mat-menu-item (click)="logout()">Logout</button>
-    </mat-menu>
+    <span>Hello, <strong>{{ (user | async)?.['displayName'] }}</strong> !</span>&nbsp;
+    <a routerLink="/items/new" mat-button class="user-menu-btn">Add new item</a>&nbsp;
+    <button mat-button (click)="logout()" class="user-menu-btn">Logout</button>
   </nav>
 </ng-template>
