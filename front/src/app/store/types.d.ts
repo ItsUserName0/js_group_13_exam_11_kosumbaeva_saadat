@@ -12,7 +12,9 @@ export type UsersState = {
 export type ItemsState = {
   items: Item[],
   fetchLoading: boolean,
-  fetchError: null | CreateItemError,
+  fetchError: null | string,
+  createLoading: boolean,
+  createError: null | CreateItemError,
 }
 
 export type AppState = {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/types';
 import { Observable } from 'rxjs';
-import { CreateItemError, Item } from '../../models/item.model';
+import { Item } from '../../models/item.model';
 import { fetchItemsRequest } from '../../store/items.actions';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ItemsComponent implements OnInit {
   items: Observable<Item[]>;
   loading: Observable<boolean>;
-  error: Observable<null | CreateItemError>;
+  error: Observable<null | string>;
   category = 'all';
   title = 'all';
 

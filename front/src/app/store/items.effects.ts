@@ -3,8 +3,15 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ItemsService } from '../services/items.service';
 import { Router } from '@angular/router';
 import { HelpersService } from '../services/helpers.service';
-import { fetchItemsFailure, fetchItemsRequest, fetchItemsSuccess } from './items.actions';
-import { map, mergeMap } from 'rxjs';
+import {
+  createItemFailure,
+  createItemRequest,
+  createItemSuccess,
+  fetchItemsFailure,
+  fetchItemsRequest,
+  fetchItemsSuccess
+} from './items.actions';
+import { map, mergeMap, tap } from 'rxjs';
 
 @Injectable()
 export class ItemsEffects {
@@ -16,9 +23,21 @@ export class ItemsEffects {
 
   fetchItems = createEffect(() => this.actions.pipe(
     ofType(fetchItemsRequest),
-    mergeMap(({category}) => this.itemsService.fetchPosts(category).pipe(
+    mergeMap(({category}) => this.itemsService.fetchItems(category).pipe(
       map((items) => fetchItemsSuccess({items})),
       this.helpers.catchServerError(fetchItemsFailure),
+    ))
+  ));
+
+  createItem = createEffect(() => this.actions.pipe(
+    ofType(createItemRequest),
+    mergeMap(({itemData}) => this.itemsService.createItem(itemData).pipe(
+      map(() => createItemSuccess()),
+      tap(() => {
+        void this.router.navigate(['/']);
+        this.helpers.openSnackBar('Created successful!');
+      }),
+      this.helpers.catchServerError(createItemFailure),
     ))
   ));
 

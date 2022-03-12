@@ -12,12 +12,12 @@ export class ItemsService {
   constructor(private http: HttpClient) {
   }
 
-  fetchPosts(category: null | string) {
-    const url = category === 'all' ? '/items' : '/items/' + category;
+  fetchItems(category: null | string) {
+    const url = category === 'all' ? '/items' : '/items?category=' + category;
     return this.http.get<Item[]>(environment.apiUrl + url);
   }
 
-  fetchPost(id: string) {
+  fetchItem(id: string) {
     return this.http.get<Item[] | null>(environment.apiUrl + `/items/${id}`).pipe(
       map(result => {
         if (!result) return null;
@@ -26,7 +26,7 @@ export class ItemsService {
     )
   }
 
-  createPost(itemData: ItemData) {
+  createItem(itemData: ItemData) {
     const formData = new FormData();
 
     Object.keys(itemData).forEach(key => {

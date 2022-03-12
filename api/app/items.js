@@ -24,7 +24,7 @@ const upload = multer({storage});
 router.get('/', async (req, res, next) => {
   try {
     if (req.query['category']) {
-      const items = await Item.find({category: req.query.category}).populate('user', ['displayName', 'phone', '_id']).populate('category');
+      const items = await Item.find({category: req.query['category']}).populate('user', ['displayName', 'phone', '_id']).populate('category');
       return res.send(items);
     }
     const items = await Item.find({}, null, {sort: {'_id': -1}}).populate('user', ['displayName', 'phone', '_id']).populate('category');
