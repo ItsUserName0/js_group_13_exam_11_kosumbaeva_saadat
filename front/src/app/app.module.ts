@@ -26,6 +26,18 @@ import { UsersEffects } from './store/users.effects';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { ImagePipe } from './pipes/image.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { ItemsComponent } from './ui/items/items.component';
+import { ItemComponent } from './ui/item/item.component';
+import { SidebarComponent } from './ui/sidebar/sidebar.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ValidatePhoneDirective } from './directives/validate-phone.directive';
+import { EditItemComponent } from './pages/edit-item/edit-item.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ItemDetailsComponent } from './pages/item-details/item-details.component';
 
 const localStorageSyncReducer = (reducer: ActionReducer<any>) => {
   return localStorageSync({
@@ -45,6 +57,13 @@ const metaReducers: MetaReducer[] = [localStorageSyncReducer];
     CenteredCardComponent,
     FileInputComponent,
     ImagePipe,
+    ItemsComponent,
+    ItemComponent,
+    SidebarComponent,
+    HomeComponent,
+    ValidatePhoneDirective,
+    EditItemComponent,
+    ItemDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +82,11 @@ const metaReducers: MetaReducer[] = [localStorageSyncReducer];
     MatSnackBarModule,
     StoreModule.forRoot({users: usersReducer}, {metaReducers}),
     EffectsModule.forRoot([UsersEffects]),
+    MatProgressSpinnerModule,
+    LayoutModule,
+    MatSidenavModule,
+    MatListModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

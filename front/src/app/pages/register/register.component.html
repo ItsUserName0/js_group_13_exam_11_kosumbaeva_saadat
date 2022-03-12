@@ -14,7 +14,29 @@
              required matInput ngModel #password="ngModel">
       <mat-error *ngIf="password.touched && password.hasError('required')">Password is required!</mat-error>
     </mat-form-field>
-    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid || (loading | async)">REGISTER
+    <mat-form-field appearance="outline">
+      <mat-label>Display name</mat-label>
+      <input type="text" name="displayName"
+             required matInput ngModel #displayName="ngModel">
+      <mat-error *ngIf="displayName.touched && displayName.hasError('required')">Display name is required!</mat-error>
+      <mat-error
+        *ngIf="displayName.touched && displayName.hasError('serverError')">{{ displayName.getError('serverError') }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Phone number</mat-label>
+      <input type="text" name="phone"
+             required appPhone matInput ngModel #phone="ngModel" placeholder="+996-XXX-YYYYYY">
+      <mat-error *ngIf="phone.touched && phone.hasError('required')">Phone number is required!</mat-error>
+      <mat-error *ngIf="phone.touched && phone.hasError('phone')">Enter a valid phone number!</mat-error>
+    </mat-form-field>
+
+    <div class="reg-link" fxLayout="row" fxLayoutAlign="center">
+      <a routerLink="/login">Already have an account? Sign in!</a>
+    </div>
+
+    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid || (loading | async)">
+      <mat-spinner *ngIf="loading | async" diameter="25"></mat-spinner>
+      <span *ngIf="!(loading | async)">REGISTER</span>
     </button>
   </form>
 </app-centered-card>
