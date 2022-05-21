@@ -33,7 +33,7 @@ export class UsersEffects {
       map(user => registerUserSuccess({user})),
       tap(() => {
         void this.router.navigate(['/']);
-        this.helpers.openSnackBar('Registered successful!');
+        this.helpers.openSnackBar('Вы успешно зарегистрированы!');
       }),
       this.helpers.catchServerError(registerUserFailure),
     )),
@@ -45,7 +45,7 @@ export class UsersEffects {
       map(user => loginUserSuccess({user})),
       tap(() => {
         void this.router.navigate(['/']);
-        this.helpers.openSnackBar('Login successful!');
+        this.helpers.openSnackBar('Вы успешно залогинены!');
       }),
       this.helpers.catchServerError(loginUserFailure),
     )),
@@ -58,7 +58,7 @@ export class UsersEffects {
       if (user) {
         return this.usersService.logout(user.token).pipe(
           map(() => logoutUser()),
-          tap(() => this.helpers.openSnackBar('Logout successful!')),
+          tap(() => this.helpers.openSnackBar('Вы успешно вышли из аккаунта!')),
         );
       }
 

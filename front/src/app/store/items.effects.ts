@@ -43,7 +43,7 @@ export class ItemsEffects {
       map(() => createItemSuccess()),
       tap(() => {
         void this.router.navigate(['/']);
-        this.helpers.openSnackBar('Created successful!');
+        this.helpers.openSnackBar('Товар успешно добавлен!');
       }),
       this.helpers.catchServerError(createItemFailure),
     ))
@@ -54,7 +54,7 @@ export class ItemsEffects {
     mergeMap(({data}) => this.itemsService.removeItem(data).pipe(
       map(() => removeItemSuccess()),
       tap(() => {
-        this.helpers.openSnackBar('Removed successful!');
+        this.helpers.openSnackBar('Успешно удалено!');
         void this.router.navigate(['/']);
       }),
       this.helpers.catchServerError(removeItemFailure),

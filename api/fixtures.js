@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const {nanoid} = require('nanoid');
-const config = require("./config");
+const config = require('./config');
 const User = require('./models/User');
-const Item = require("./models/Item");
-const Category = require("./models/Category");
+const Item = require('./models/Item');
+const Category = require('./models/Category');
 
 const run = async () => {
   await mongoose.connect(config.mongo.db, config.mongo.options);
@@ -18,21 +18,21 @@ const run = async () => {
     {
       email: 'user@user',
       password: '123',
-      displayName: 'John Doe',
+      displayName: 'Мария',
       phone: '+996 555 222 888',
       token: nanoid(),
     },
     {
       email: 'user2@user',
       password: '123',
-      displayName: 'Jane Shepard',
+      displayName: 'Илья',
       phone: '+996 999 333 777',
       token: nanoid(),
     },
     {
       email: 'user3@user',
       password: '123',
-      displayName: 'Isaac',
+      displayName: 'Андрей',
       phone: '+996 777 222 999',
       token: nanoid(),
     },
@@ -40,63 +40,88 @@ const run = async () => {
 
   const [Cat1, Cat2, Cat3] = await Category.create(
     {
-      category: 'computers',
+      category: 'компьютеры',
     },
     {
-      category: 'cars',
+      category: 'авто',
     },
     {
-      category: 'other',
+      category: 'другое',
     });
 
   await Item.create(
     {
       user: User1,
       category: Cat1,
-      title: 'User1 item1 title',
-      description: 'User1 item1 description.',
-      image: 'item1.jpg',
-      price: 150,
-    },
-    {
-      user: User1,
-      category: Cat2,
-      title: 'User1 item2 title',
-      description: 'User1 item2 description.',
-      image: 'item2.jpeg',
-      price: 250,
-    },
-    {
-      user: User1,
-      category: Cat3,
-      title: 'User1 item3 title',
-      description: 'User1 item3 description.',
-      image: 'item3.jpeg',
-      price: 350,
+      title: 'Ноутбук Asus ROG Strix G15',
+      description: 'Упрощает и расширяет возможности ROG Strix G15 в домашних играх с Windows 10. Благодаря мощному процессору AMD Ryzen ™ и графическому процессору GeForce RTX ™ все, от игр до многозадачности, выполняется быстро и плавно. Полностью ускоряйтесь в киберспорте благодаря дисплею для соревнований с частотой до 144 Гц / 3 мс. Adaptive-Sync делает игровой процесс сверхплавным, а усовершенствованные тепловые обновления помогут вам оставаться прохладным в стрессовых ситуациях. Независимо от того, какая у вас игра, вы можете добиться идеальной игры.',
+      image: 'pic2.jpg',
+      price: 1200,
     },
     {
       user: User2,
       category: Cat1,
-      title: 'User2 item1 title',
-      description: 'User2 item1 description.',
-      image: 'item4.jpg',
-      price: 300,
+      title: 'Ноутбук LENOVO IDEAPAD 3 15IIL05',
+      description: 'IdeaPad 3 стоит, как обычный ноутбук для повседневного использования, однако это устройство способно на большее. Модели, оснащенные процессорами Intel Core i5,\n' +
+        'а также увеличенными объемами оперативной памяти и эффективными накопителями, превзойдут любые ваши ожидания. И в качестве бонуса — цифровая панель, с которой вы будете во всеоружии, если вам потребуется работать с электронными таблицами или рассчитать семейный бюджет.',
+      image: 'pic1.png',
+      price: 800,
+    },
+    {
+      user: User3,
+      category: Cat1,
+      title: 'Ноутбук Lenovo Ideapad S145-15AST',
+      description: 'Благодаря процессору AMD A-6 ноутбук IdeaPad S145 поможет вам решить любые задачи. Кроме того, предусмотрено несколько вариантов хранения данных, включая гибридное хранилище на базе твердотельного накопителя и жесткого диска, что гарантирует минимальное время отклика.',
+      image: 'pic3.jpg',
+      price: 400,
+    },
+    {
+      user: User1,
+      category: Cat2,
+      title: 'Kia X-Car',
+      description: 'Новый Автомобиль Kia X-Line создан специально для удобства водителей по всему мира. Забудьте о преградах на пути. Наслаждайтесь комфортом и динамикой на любых дорогах.',
+      image: 'pic6.jpg',
+      price: 30000,
     },
     {
       user: User2,
       category: Cat2,
-      title: 'User2 item3 title',
-      description: 'User2 item3 description.',
-      image: 'item5.jpg',
-      price: 250,
+      title: 'Generic Sport Car 2014',
+      description: 'Этот универсальный и функциональный внедорожник буквально создан для активного отдыха и незабываемых путешествий, но и в ежедневных городских поездках он будет просто великолепен. Это новый уровень практичности и безопасности, стиля и комфорта, универсальности и надежности.',
+      image: 'pic7.jpg',
+      price: 90000,
+    },
+    {
+      user: User3,
+      category: Cat2,
+      title: 'Lexus LS 460',
+      description: 'Новый флагман Lexus LS460 был представлен в Женеве осенью 2006 года. В его создании были использованы новейшие технологии из области автомобильной безопасности. Благодаря новой гидравлической системе управления передачи переключаются значительно быстрее. Это один из отличительных признаков LS460. В интерьере же дизайнеры стремились создать идеально естественное пространство, в котором все - от первого прикосновения к автомобилю до материала отделки салона - было бы максимально удобным и приятным.',
+      image: 'pic4.jpg',
+      price: 60000,
+    },
+    {
+      user: User1,
+      category: Cat3,
+      title: 'Honda CBR 600 RR',
+      description: 'Honda CBR600RR – динамичная и универсальная спортивная машина. Один из лидеров в классе Super Sport , CBR600RR является истинным героем гоночных треков, но адекватно и предсказуемо ведет себя на городских улицах и извилистых проселочных дорогах. Главная задача этого мощного байка – безупречно подчиняясь командам без труда превосходить своих противников, и с этой задачей СВR600RR успешно справляется.',
+      image: 'pic8.png',
+      price: 50000,
+    },
+    {
+      user: User2,
+      category: Cat3,
+      title: 'Kawasaki Ninja ZX-10R Черный 2022',
+      description: 'Вы можете опередить всех соперников, но всегда есть проблема, с которой Вам еще предстоит столкнуться. Она находится внутри Вас самих. Для тех, кто готов к любым испытаниям, мы разработали мотоцикл, которого заслуживает настоящий чемпион. В новых Ninja ZX-10R и Ninja ZX-10RR предусмотрено все, что нужно для победы. Абсолютно новые аэродинамические обтекатели со встроенными винглетами, небольшие и легкие светодиодные фары, цветная приборная панель с TFT-дисплеем и возможностью подключения смартфона, а также обновления, основанные на опыте Kawasaki Racing Team.Теперь, когда у Вас есть заряженный на гонку Ninja, Вы можете испытать себя.',
+      image: 'pic9.jpg',
+      price: 60000,
     },
     {
       user: User3,
       category: Cat3,
-      title: 'User3 item 1 title',
-      description: 'User3 item 1 description.',
-      image: 'item6.jpg',
-      price: 900,
+      title: 'Suzuki GSX-R 1000',
+      description: 'Мотобайк, выпуск которого стартовал в 2012 году, стал самым ожидаемым проектом того сезона. Основной ворох надежд возлагался на массу внешних изменений, горячо ожидаемых фанатами японского гранда Suzuki. Но, к большому сожалению толпы, чуда не произошло: расчётливые производители сосредоточились на модернизации механической (или, в общем смысле, силовой) части.',
+      image: 'pic10.jpg',
+      price: 45000,
     },);
 
 

@@ -2,8 +2,8 @@
   <div class="container toolbar" fxLayout="row" fxLayoutAlign="space-between center">
     <a routerLink="/">Flea market</a>
     <nav *ngIf="!(user | async) else userMenu">
-      <a routerLink="/register" mat-button>REGISTER</a>
-      <a routerLink="/login" mat-button>SIGN IN</a>
+      <a routerLink="/register" mat-button>РЕГИСТРАЦИЯ</a>
+      <a routerLink="/login" mat-button>ВОЙТИ</a>
     </nav>
   </div>
 </mat-toolbar>
@@ -13,8 +13,8 @@
 
 <ng-template #userMenu>
   <nav>
-    <span>Hello, <strong>{{ (user | async)?.['displayName'] }}</strong> !</span>&nbsp;
-    <a routerLink="/items/new" mat-button class="user-menu-btn">Add new item</a>&nbsp;
-    <button mat-button (click)="logout()" class="user-menu-btn">Logout</button>
+    <span>Привет, <strong>{{ (user | async)?.['displayName'] }}</strong> !</span>&nbsp;
+    <a routerLink="/items/new" mat-button class="user-menu-btn">Добавить товар</a>&nbsp;
+    <button mat-button (click)="logout()" class="user-menu-btn">Выйти</button>
   </nav>
 </ng-template>

@@ -2,7 +2,7 @@
 
 <ng-template #categoriesFieldArea>
   <mat-nav-list>
-    <a mat-list-item routerLink="/items/category/all">All</a>
+    <a mat-list-item routerLink="/items/category/all">Все</a>
     <a mat-list-item [routerLink]="['items', 'category', c._id]" *ngFor="let c of categories | async"
        class="category">{{ c.category }}</a>
   </mat-nav-list>

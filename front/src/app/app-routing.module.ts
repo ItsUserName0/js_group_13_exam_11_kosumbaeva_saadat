@@ -10,6 +10,7 @@ import { ItemDetailsComponent } from './pages/item-details/item-details.componen
 const routes: Routes = [
   {
     path: '', component: HomeComponent, children: [
+      {path: '', component: ItemsComponent},
       {path: 'items/category/:id', component: ItemsComponent},
     ]
   },

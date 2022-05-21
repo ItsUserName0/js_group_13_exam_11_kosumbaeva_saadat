@@ -16,7 +16,6 @@ export class ItemsComponent implements OnInit {
   loading: Observable<boolean>;
   error: Observable<null | string>;
   category = 'all';
-  title = 'all';
 
   constructor(private store: Store<AppState>, private route: ActivatedRoute) {
     this.items = store.select(state => state.items.items);
@@ -27,8 +26,7 @@ export class ItemsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.category = params['id'];
-      this.store.dispatch(fetchItemsRequest({category: this.category}));
+      this.store.dispatch(fetchItemsRequest({category: this.category ? this.category : 'all'}));
     });
   }
-
 }

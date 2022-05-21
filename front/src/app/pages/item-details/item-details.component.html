@@ -11,16 +11,16 @@
       <img
         [src]="itemData.image | image"
         [alt]="'Photo of ' + itemData.title"/>
-      <p>Description</p>
-      <p><strong>Price: </strong>{{ itemData.price }} som</p>
-      <p><strong>Category: </strong>{{ itemData.category.category }}</p>
-      <p><strong>Seller: </strong></p>
+      <p>Описание: {{ itemData.description }}</p>
+      <p><strong>Цена: </strong>{{ itemData.price }} som</p>
+      <p><strong>Категория: </strong>{{ itemData.category.category }}</p>
+      <p><strong>Продавец: </strong></p>
       <ul>
-        <li><strong>Name: </strong>{{ itemData.user.displayName }}</li>
-        <li><strong>Phone: </strong>{{ itemData.user.phone }}</li>
+        <li><strong>Имя: </strong>{{ itemData.user.displayName }}</li>
+        <li><strong>Номер: </strong>{{ itemData.user.phone }}</li>
       </ul>
 
-      <button mat-raised-button color="warn" (click)="onDelete()" *ngIf="showButton()">Delete</button>
+      <button mat-raised-button color="warn" (click)="onDelete()" *ngIf="showButton()">Удалить</button>
 
     </mat-card-content>
   </mat-card>
